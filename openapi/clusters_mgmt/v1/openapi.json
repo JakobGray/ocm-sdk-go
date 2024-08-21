@@ -10425,6 +10425,50 @@
             }
           }
         }
+      },
+      "patch": {
+        "description": "Updates the wif_config.",
+        "parameters": [
+          {
+            "name": "wif_config_id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WifConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WifConfig"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/clusters_mgmt/v1/gcp_inquiries/encryption_keys": {
@@ -18207,6 +18251,13 @@
           "organization": {
             "description": "The OCM organization that this wif_config resource belongs to.",
             "$ref": "#/components/schemas/OrganizationLink"
+          },
+          "wif_template_ids": {
+            "description": "ID(s) of the template(s) used to configure IAM resources",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -18235,6 +18286,10 @@
           },
           "project_number": {
             "description": "This represents the GCP project number in which the wif resources will be configured.",
+            "type": "string"
+          },
+          "role_prefix": {
+            "description": "Configurable prefix for GCP custom roles configured.",
             "type": "string"
           },
           "service_accounts": {

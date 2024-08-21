@@ -1,4 +1,4 @@
-module github.com/openshift-online/ocm-sdk-go
+module github.com/JakobGray/ocm-sdk-go
 
 go 1.21
 

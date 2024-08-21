@@ -35,12 +35,13 @@ const WifConfigNilKind = "WifConfigNil"
 //
 // Definition of an wif_config resource.
 type WifConfig struct {
-	bitmap_      uint32
-	id           string
-	href         string
-	displayName  string
-	gcp          *WifGcp
-	organization *OrganizationLink
+	bitmap_        uint32
+	id             string
+	href           string
+	displayName    string
+	gcp            *WifGcp
+	organization   *OrganizationLink
+	wifTemplateIds []string
 }
 
 // Kind returns the name of the type of the object.
@@ -165,6 +166,29 @@ func (o *WifConfig) GetOrganization() (value *OrganizationLink, ok bool) {
 	ok = o != nil && o.bitmap_&32 != 0
 	if ok {
 		value = o.organization
+	}
+	return
+}
+
+// WifTemplateIds returns the value of the 'wif_template_ids' attribute, or
+// the zero value of the type if the attribute doesn't have a value.
+//
+// ID(s) of the template(s) used to configure IAM resources
+func (o *WifConfig) WifTemplateIds() []string {
+	if o != nil && o.bitmap_&64 != 0 {
+		return o.wifTemplateIds
+	}
+	return nil
+}
+
+// GetWifTemplateIds returns the value of the 'wif_template_ids' attribute and
+// a flag indicating if the attribute has a value.
+//
+// ID(s) of the template(s) used to configure IAM resources
+func (o *WifConfig) GetWifTemplateIds() (value []string, ok bool) {
+	ok = o != nil && o.bitmap_&64 != 0
+	if ok {
+		value = o.wifTemplateIds
 	}
 	return
 }

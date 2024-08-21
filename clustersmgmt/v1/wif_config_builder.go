@@ -23,12 +23,13 @@ package v1 // github.com/openshift-online/ocm-sdk-go/clustersmgmt/v1
 //
 // Definition of an wif_config resource.
 type WifConfigBuilder struct {
-	bitmap_      uint32
-	id           string
-	href         string
-	displayName  string
-	gcp          *WifGcpBuilder
-	organization *OrganizationLinkBuilder
+	bitmap_        uint32
+	id             string
+	href           string
+	displayName    string
+	gcp            *WifGcpBuilder
+	organization   *OrganizationLinkBuilder
+	wifTemplateIds []string
 }
 
 // NewWifConfig creates a new builder of 'wif_config' objects.
@@ -92,6 +93,14 @@ func (b *WifConfigBuilder) Organization(value *OrganizationLinkBuilder) *WifConf
 	return b
 }
 
+// WifTemplateIds sets the value of the 'wif_template_ids' attribute to the given values.
+func (b *WifConfigBuilder) WifTemplateIds(values ...string) *WifConfigBuilder {
+	b.wifTemplateIds = make([]string, len(values))
+	copy(b.wifTemplateIds, values)
+	b.bitmap_ |= 64
+	return b
+}
+
 // Copy copies the attributes of the given object into this builder, discarding any previous values.
 func (b *WifConfigBuilder) Copy(object *WifConfig) *WifConfigBuilder {
 	if object == nil {
@@ -110,6 +119,12 @@ func (b *WifConfigBuilder) Copy(object *WifConfig) *WifConfigBuilder {
 		b.organization = NewOrganizationLink().Copy(object.organization)
 	} else {
 		b.organization = nil
+	}
+	if object.wifTemplateIds != nil {
+		b.wifTemplateIds = make([]string, len(object.wifTemplateIds))
+		copy(b.wifTemplateIds, object.wifTemplateIds)
+	} else {
+		b.wifTemplateIds = nil
 	}
 	return b
 }
@@ -132,6 +147,10 @@ func (b *WifConfigBuilder) Build() (object *WifConfig, err error) {
 		if err != nil {
 			return
 		}
+	}
+	if b.wifTemplateIds != nil {
+		object.wifTemplateIds = make([]string, len(b.wifTemplateIds))
+		copy(object.wifTemplateIds, b.wifTemplateIds)
 	}
 	return
 }
