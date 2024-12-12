@@ -27,8 +27,8 @@ export PATH := $(LOCAL_BIN_PATH):$(PATH)
 export CGO_ENABLED=0
 
 # Details of the model to use:
-model_version:=v0.0.402
-model_url:=https://github.com/openshift-online/ocm-api-model.git
+model_version:=wif-patch
+model_url:=https://github.com/JakobGray/ocm-api-model.git
 
 # Details of the metamodel to use:
 metamodel_version:=v0.0.61
@@ -99,8 +99,8 @@ model:
 	else \
 		git clone "$(model_url)" "$@"; \
 		cd "$@"; \
-		git fetch --tags origin; \
-		git checkout -B build "$(model_version)"; \
+		git fetch origin; \
+		git checkout -B build "origin/$(model_version)"; \
 	fi
 
 .PHONY: metamodel
